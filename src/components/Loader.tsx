@@ -42,7 +42,7 @@ const particulas: ParticleStyle[] = Array.from({ length: 260 }, (_, index) => {
 
 export function Loader() {
   const [saindo, setSaindo] = useState(false)
-  const [visivel, setVisivel] = useState(true)
+  const [visivel, setVisivel] = useState(() => typeof window !== 'undefined')
 
   useEffect(() => {
     const movimentoReduzido = window.matchMedia(

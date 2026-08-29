@@ -1,12 +1,9 @@
 import { processo, servicos } from '../data/site'
 import { PageHero } from '../components/navigation'
-import { useTituloPagina } from '../hooks'
 import { Reveal, WhatsAppButton } from '../components/primitives'
 import { Faq, FinalCta, Packages, Plan } from '../components/Sections'
 
 export default function Servicos() {
-  useTituloPagina('Serviços — Fábrica de Sites')
-
   return (
     <>
       <PageHero

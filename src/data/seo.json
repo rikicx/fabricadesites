@@ -1,0 +1,60 @@
+{
+  "site": {
+    "name": "Fábrica de Sites",
+    "url": "https://fabricadesites.com",
+    "locale": "pt_BR",
+    "language": "pt-BR",
+    "image": "/og-fabrica-de-sites.png",
+    "imageAlt": "Fábrica de Sites — sites com direção humana e velocidade de IA"
+  },
+  "routes": {
+    "/": {
+      "title": "Criação de Sites por Assinatura | Fábrica de Sites",
+      "description": "Sites para pequenos negócios a partir de R$ 80/mês. Direção de um designer sênior, velocidade de IA e menos trabalho para colocar sua empresa no ar.",
+      "index": true,
+      "label": "Início"
+    },
+    "/servicos": {
+      "title": "Sites, Lojas Virtuais e Identidade Visual | Fábrica de Sites",
+      "description": "Criação de sites institucionais, lojas virtuais, identidade visual e repaginação para micro e pequenos negócios, com direção humana e IA.",
+      "index": true,
+      "label": "Serviços"
+    },
+    "/como-fazemos": {
+      "title": "Como Criamos seu Site com IA | Fábrica de Sites",
+      "description": "Entenda como reunimos suas informações, criamos uma prévia, fazemos os ajustes, escolhemos o domínio com você e colocamos o site no ar.",
+      "index": true,
+      "label": "Como fazemos"
+    },
+    "/por-que-fazemos": {
+      "title": "Sites para Pequenos Negócios | Fábrica de Sites",
+      "description": "Ajudamos micro e pequenos empresários a construir presença digital sem desviar a atenção do que importa: atender, vender e expandir o negócio.",
+      "index": true,
+      "label": "Por que fazemos"
+    },
+    "/quem-somos": {
+      "title": "Quem Somos | Fábrica de Sites",
+      "description": "Conheça a proposta da Fábrica de Sites: IA conduzida pelo olhar de um designer sênior para criar presença digital com clareza e cuidado.",
+      "index": true,
+      "label": "Quem somos"
+    },
+    "/contato": {
+      "title": "Contato | Fábrica de Sites",
+      "description": "Fale com a Fábrica de Sites sobre seu site, loja virtual, identidade visual ou repaginação. Conte o básico e a gente organiza o próximo passo.",
+      "index": true,
+      "label": "Contato"
+    },
+    "/checkout": {
+      "title": "Contratar um Site Online | Fábrica de Sites",
+      "description": "Escolha o período do plano e envie as informações que seu negócio já tem para iniciar a criação do site sem reunião ou briefing interminável.",
+      "index": false,
+      "label": "Contratação online"
+    },
+    "404": {
+      "title": "Página não encontrada | Fábrica de Sites",
+      "description": "O endereço informado não existe ou foi alterado.",
+      "index": false,
+      "label": "Página não encontrada"
+    }
+  }
+}

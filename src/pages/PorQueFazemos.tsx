@@ -2,11 +2,8 @@ import { FinalCta, Packages, Plan } from '../components/Sections'
 import { PageHero } from '../components/navigation'
 import { Reveal, WhatsAppButton } from '../components/primitives'
 import { porQueFazemosPagina } from '../data/site'
-import { useTituloPagina } from '../hooks'
 
 export default function PorQueFazemos() {
-  useTituloPagina('Por que fazemos — Fábrica de Sites')
-
   return (
     <>
       <PageHero

@@ -6,6 +6,7 @@ import { WhatsAppFab } from './components/WhatsAppFab'
 import { BackToTopButton } from './components/BackToTopButton'
 import { DotBackdrop } from './components/DotBackdrop'
 import { ScrollManager } from './components/navigation'
+import { SeoManager } from './components/SeoManager'
 import { whatsappConfigurado } from './data/site'
 
 import Home from './pages/Home'
@@ -36,6 +37,7 @@ export default function App() {
       )}
 
       <ScrollManager />
+      <SeoManager />
 
       {/* key força remontagem por rota: o observer precisa reavaliar se existe
           um .hero na página nova. Só a home tem. */}

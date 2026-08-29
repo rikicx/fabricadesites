@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom'
-import { useTituloPagina } from '../hooks'
 
 export default function NaoEncontrada() {
-  useTituloPagina('Página não encontrada — Fábrica de Sites')
-
   return (
     <section className="section nf">
       <div className="shell nf__inner">

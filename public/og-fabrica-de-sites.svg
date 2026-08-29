@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#cff759"/>
+      <stop offset="1" stop-color="#00ff00"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.82" cy="0.18" r="0.72">
+      <stop offset="0" stop-color="#86ff00" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#86ff00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#0b0b0a"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <g opacity="0.24" fill="#cff759">
+    <circle cx="1040" cy="88" r="3"/><circle cx="1092" cy="132" r="2"/>
+    <circle cx="986" cy="168" r="2"/><circle cx="1140" cy="226" r="3"/>
+    <circle cx="1030" cy="264" r="2"/><circle cx="1114" cy="332" r="2"/>
+  </g>
+  <g transform="translate(82 76) scale(.24)" fill="url(#g)">
+    <path d="M392.83 395.61c-1.86 0-3.74-.47-5.47-1.46-5.29-3.02-7.13-9.77-4.11-15.06l66.24-115.92c18.15-31.46 24.57-57.63 17.63-71.85-3.91-8.01-12.43-12.84-26.03-14.77-47.79-5.73-100.6 9.29-148.72 42.32-3.85 2.64-8.95 2.58-12.73-.17-3.78-2.75-5.42-7.57-4.1-12.06l47.79-161.98-157.43 64.22-11.57 131.76c12.46-4.92 25.43-9.47 39.25-13.81 4.37-1.38 9.13.09 11.97 3.69 2.84 3.59 3.17 8.57.82 12.5l-62.56 104.88c-2.64 4.42-7.98 6.43-12.88 4.85-4.9-1.58-8.05-6.34-7.6-11.47l5.73-65.3c-28.41 14.02-55.84 31.41-87.52 54.89-4.9 3.63-11.81 2.6-15.44-2.29-3.63-4.9-2.6-11.81 2.29-15.44 37.29-27.64 68.95-47.16 102.91-62.7l13.19-150.2c.36-4.12 3-7.69 6.83-9.26L336.23 15.55c3.93-1.6 8.43-.81 11.57 2.03 3.15 2.85 4.38 7.24 3.18 11.31l-46.12 156.33c45.65-25.19 94.11-35.99 138.97-30.57.07 0 .14.02.21.03 21.19 2.97 35.63 12.05 42.91 26.96 13.28 27.21-2.63 65.33-18.32 92.52l-66.22 115.88c-2.04 3.57-5.76 5.56-9.6 5.56Z"/>
+  </g>
+  <text x="82" y="248" fill="#f5f5ef" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Fábrica de Sites</text>
+  <text x="82" y="336" fill="#cff759" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="600">Seu site, sem complicação.</text>
+  <text x="82" y="425" fill="#b7b7ae" font-family="Arial, Helvetica, sans-serif" font-size="26">Direção humana. Velocidade de IA.</text>
+  <line x1="82" y1="512" x2="1118" y2="512" stroke="#30302c"/>
+  <text x="82" y="560" fill="#85857d" font-family="Arial, Helvetica, sans-serif" font-size="20" letter-spacing="3">FABRICADESITES.COM</text>
+</svg>

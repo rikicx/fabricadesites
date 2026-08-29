@@ -1,12 +1,9 @@
 import { quemSomos } from '../data/site'
 import { PageHero } from '../components/navigation'
-import { useTituloPagina } from '../hooks'
 import { Reveal, WhatsAppButton } from '../components/primitives'
 import { FinalCta } from '../components/Sections'
 
 export default function QuemSomos() {
-  useTituloPagina('Quem somos — Fábrica de Sites')
-
   const { responsavel, numeros } = quemSomos
   const numerosDefinidos = numeros.filter((n) => n.valor)
 

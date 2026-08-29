@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { WHATSAPP, contato, whatsappConfigurado } from '../data/site'
 import { PageHero } from '../components/navigation'
-import { useTituloPagina } from '../hooks'
 import { Reveal } from '../components/primitives'
 
 /* --------------------------------------------------------------------------
@@ -121,8 +120,6 @@ function FormularioWhatsApp() {
 }
 
 export default function Contato() {
-  useTituloPagina('Contato — Fábrica de Sites')
-
   const canaisDefinidos = contato.canais.filter((c) => c.valor)
 
   return (

@@ -326,17 +326,3 @@ export function useScrollFill<T extends HTMLElement = HTMLDivElement>(
 
   return { ref, reached }
 }
-
-/* --------------------------------------------------------------------------
- *  TÍTULO DA ABA POR PÁGINA
- *  Restaura o título da home ao desmontar, para o usuário nunca ficar com o
- *  título de uma página que já saiu.
- * ----------------------------------------------------------------------- */
-export function useTituloPagina(titulo: string) {
-  useEffect(() => {
-    document.title = titulo
-    return () => {
-      document.title = 'Fábrica de Sites — Seu site, sem complicação'
-    }
-  }, [titulo])
-}

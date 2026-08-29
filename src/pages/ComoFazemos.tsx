@@ -3,11 +3,8 @@ import { Process } from '../components/Process'
 import { PageHero } from '../components/navigation'
 import { Reveal, WhatsAppButton } from '../components/primitives'
 import { comoFazemosPagina } from '../data/site'
-import { useTituloPagina } from '../hooks'
 
 export default function ComoFazemos() {
-  useTituloPagina('Como fazemos — Fábrica de Sites')
-
   return (
     <>
       <PageHero

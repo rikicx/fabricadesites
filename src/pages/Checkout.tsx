@@ -13,7 +13,6 @@ import {
   checkoutPagina,
   plano,
 } from '../data/site'
-import { useTituloPagina } from '../hooks'
 
 type DadosCheckout = {
   nome: string
@@ -53,8 +52,6 @@ const moeda = (valor: number) =>
   }).format(valor)
 
 export default function Checkout() {
-  useTituloPagina('Contratação online — Fábrica de Sites')
-
   const [dados, setDados] = useState<DadosCheckout>(dadosIniciais)
   const [meses, setMeses] = useState<number>(plano.mesesMaximos)
   const [revisado, setRevisado] = useState(false)
