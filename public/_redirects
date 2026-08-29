@@ -1,0 +1,4 @@
+# SPA com BrowserRouter: qualquer rota cai no index.html e o router resolve.
+# Sem isso, abrir fabricadesites.com/servicos direto no navegador dá 404.
+# Formato Netlify. Para Vercel, use o vercel.json na raiz.
+/*    /index.html   200

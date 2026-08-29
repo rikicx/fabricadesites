@@ -1,0 +1,1070 @@
+/* ============================================================================
+ *  COMPONENTES
+ * ========================================================================= */
+
+/* --------------------------------------------------------------------------
+ *  LOGO  ⚠ quadrado verde como placeholder do monograma FS
+ * ----------------------------------------------------------------------- */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.logo__mark {
+  display: block;
+  width: 42px;
+  height: 34px;
+  object-fit: contain;
+  flex: none;
+  animation: logo-in 620ms var(--ease) both;
+  filter: drop-shadow(0 0 10px rgb(196 248 42 / 0.16));
+}
+
+.logo__word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+@keyframes logo-in {
+  from {
+    transform: scale(0.2) rotate(-14deg);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ *  BOTÕES
+ * ----------------------------------------------------------------------- */
+.btn {
+  --btn-bg: var(--brand);
+  --btn-fg: var(--brand-on);
+  --btn-bd: transparent;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9375rem 1.5rem;
+  border-radius: 999px;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: 1.5px solid var(--btn-bd);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    transform var(--dur-fast) var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn--contorno {
+  --btn-bg: transparent;
+  --btn-fg: var(--fg);
+  --btn-bd: var(--line-strong);
+}
+
+.btn--contorno:hover {
+  --btn-bd: var(--brand-text);
+}
+
+/* Nas bandas claras, o limão não tem contraste suficiente como superfície
+   de controle. O verde escuro preserva a identidade e mantém a leitura. */
+.inverted .btn--solido {
+  --btn-bg: var(--brand-text);
+  --btn-fg: #fff;
+}
+
+.btn--fantasma {
+  --btn-bg: transparent;
+  --btn-fg: var(--fg);
+  --btn-bd: transparent;
+  padding-inline: 0.25rem;
+}
+
+.btn--sm {
+  padding: 0.6875rem 1.125rem;
+  font-size: 0.875rem;
+}
+
+/* Rótulo que desliza no hover */
+.btn__labels {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+}
+
+.btn__label {
+  grid-area: 1 / 1;
+  transition: transform var(--dur) var(--ease);
+  white-space: nowrap;
+}
+
+.btn__label--ghost {
+  transform: translateY(115%);
+}
+
+.btn:hover .btn__label {
+  transform: translateY(-115%);
+}
+
+.btn:hover .btn__label--ghost {
+  transform: translateY(0);
+}
+
+/* Seta que acompanha o movimento */
+.btn__arrow {
+  position: relative;
+  display: grid;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  flex: none;
+}
+
+.btn__arrow-glyph {
+  grid-area: 1 / 1;
+  line-height: 1;
+  transition: transform var(--dur) var(--ease);
+}
+
+.btn__arrow-glyph--ghost {
+  transform: translate(-90%, 90%);
+}
+
+.btn:hover .btn__arrow-glyph {
+  transform: translate(90%, -90%);
+}
+
+.btn:hover .btn__arrow-glyph--ghost {
+  transform: translate(0, 0);
+}
+
+/* Estado pendente: número de WhatsApp ainda não configurado */
+.btn--pendente {
+  cursor: not-allowed;
+  opacity: 0.55;
+  filter: saturate(0.25);
+  transform: none !important;
+}
+
+.btn__pending {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-left: 1px solid currentColor;
+  padding-left: 0.625rem;
+  opacity: 0.85;
+}
+
+/* --------------------------------------------------------------------------
+ *  ALTERNADOR DE TEMA
+ * ----------------------------------------------------------------------- */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4375rem 0.75rem 0.4375rem 0.5rem;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  color: var(--fg-muted);
+  transition:
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--line-strong);
+  color: var(--fg);
+}
+
+.theme-toggle__track {
+  position: relative;
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+  flex: none;
+}
+
+.theme-toggle__knob {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--brand);
+  transition: transform var(--dur) var(--ease);
+}
+
+[data-theme='light'] .theme-toggle__knob {
+  transform: translateX(13px);
+}
+
+.theme-toggle__text {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+ *  HEADER
+ * ----------------------------------------------------------------------- */
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  transition:
+    background var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+
+.header.is-scrolled,
+.header.is-open {
+  background: color-mix(in srgb, var(--surface) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom-color: var(--line);
+}
+
+/* Fallback para navegadores sem color-mix */
+@supports not (background: color-mix(in srgb, red 50%, blue)) {
+  .header.is-scrolled,
+  .header.is-open {
+    background: var(--surface);
+  }
+}
+
+.header__inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+}
+
+.header__link {
+  position: relative;
+  font-size: 0.9375rem;
+  color: var(--fg-muted);
+  padding: 0.375rem 0;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.header__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--brand-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur) var(--ease);
+}
+
+.header__link:hover {
+  color: var(--fg);
+}
+
+.header__link:hover::after {
+  transform: scaleX(1);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.burger__bar {
+  width: 22px;
+  height: 2px;
+  background: var(--fg);
+  transition: transform var(--dur) var(--ease);
+}
+
+.header.is-open .burger__bar:first-child {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.header.is-open .burger__bar:last-child {
+  transform: translateY(-4px) rotate(-45deg);
+}
+
+/* --------------------------------------------------------------------------
+ *  MENU MOBILE
+ * ----------------------------------------------------------------------- */
+.mobile-menu {
+  display: none;
+  padding: 1.5rem var(--gutter) 2.5rem;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  max-height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+}
+
+.mobile-menu[hidden] {
+  display: none;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.875rem;
+  padding: 0.9375rem 0;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: -0.03em;
+  animation: menu-item 380ms var(--ease) both;
+  animation-delay: calc(var(--i) * 45ms + 60ms);
+}
+
+.mobile-menu__index {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  color: var(--brand-text);
+  letter-spacing: 0.1em;
+}
+
+.mobile-menu__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-top: 1.75rem;
+}
+
+@keyframes menu-item {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 940px) {
+  .header__nav,
+  .header__cta,
+  .theme-toggle--header {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .mobile-menu:not([hidden]) {
+    display: block;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ *  MARQUEE DE LOGOS
+ * ----------------------------------------------------------------------- */
+.marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  width: max-content;
+  animation: marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.marquee.is-paused .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__item {
+  flex: none;
+}
+
+.marquee__logo {
+  height: clamp(34px, 4vw, 44px);
+  width: auto;
+  filter: var(--logo-filter) opacity(0.45);
+  transition:
+    filter var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+
+.marquee__item:hover .marquee__logo {
+  filter: none;
+  opacity: 1;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+  .marquee__track {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ *  BOTÃO FIXO DE WHATSAPP
+ * ----------------------------------------------------------------------- */
+.wa-fab {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 1.75rem);
+  bottom: clamp(1rem, 2.5vw, 1.75rem);
+  z-index: 90;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  height: 56px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: #0d7a3f; /* AA: 5.4:1 com o rótulo branco */
+  color: #fff;
+  box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.55);
+
+  opacity: 0;
+  transform: translateY(16px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    gap var(--dur) var(--ease),
+    padding var(--dur) var(--ease);
+}
+
+.wa-fab.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.wa-fab__icon {
+  width: 28px;
+  height: 28px;
+  flex: none;
+}
+
+.wa-fab__label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: max-width var(--dur) var(--ease);
+}
+
+@media (pointer: fine) {
+  .wa-fab:hover,
+  .wa-fab:focus-visible {
+    gap: 10px;
+    padding-right: 20px;
+  }
+
+  .wa-fab:hover .wa-fab__label,
+  .wa-fab:focus-visible .wa-fab__label {
+    max-width: 12rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+ *  AVISO DE DESENVOLVIMENTO
+ * ----------------------------------------------------------------------- */
+.dev-aviso {
+  position: fixed;
+  left: 50%;
+  bottom: 1rem;
+  transform: translateX(-50%);
+  z-index: 120;
+  background: var(--brand);
+  color: var(--brand-on);
+  padding: 0.5rem 0.875rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.06em;
+  max-width: calc(100vw - 2rem);
+  text-align: center;
+}
+
+.dev-aviso code {
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+ *  CAMPO DE PONTOS COM HOLOFOTE NO CURSOR
+ *
+ *  Duas camadas com a mesma grade. A de cima é revelada por uma máscara
+ *  radial posicionada em --dot-x / --dot-y, atualizadas por rAF.
+ *
+ *  Custo: mover a máscara repinta a área da camada a cada frame. Por isso ela
+ *  fica confinada ao bloco (nunca full-page) e o movimento é interpolado.
+ *  Se precisar aliviar em aparelho fraco: aumente `ease` para 0.3 ou reduza
+ *  `radius` — os dois diminuem a área repintada por frame.
+ * ----------------------------------------------------------------------- */
+.dotfield {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+
+  --dot-x: -9999px;
+  --dot-y: -9999px;
+}
+
+.dotfield__base,
+.dotfield__glow {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgb(var(--dot-rgb) / 1) 1px,
+    transparent 1px
+  );
+  background-size: var(--dot-gap) var(--dot-gap);
+  /* Trava a grade no canto do bloco: as duas camadas ficam alinhadas. */
+  background-position: 0 0;
+}
+
+.dotfield__base {
+  opacity: var(--dot-base);
+}
+
+/* A camada de brilho só existe dentro do holofote. */
+.dotfield__glow {
+  opacity: 0;
+  mask-image: radial-gradient(
+    circle var(--dot-r) at var(--dot-x) var(--dot-y),
+    #000 0%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle var(--dot-r) at var(--dot-x) var(--dot-y),
+    #000 0%,
+    transparent 70%
+  );
+  transition: opacity var(--dur) var(--ease);
+}
+
+.dotfield.is-live .dotfield__glow {
+  opacity: var(--dot-glow);
+}
+
+/* Sem máscara disponível, a camada de brilho fica fora para não virar um
+   retângulo sólido de pontos. */
+@supports not ((mask-image: radial-gradient(circle, #000, transparent)) or
+               (-webkit-mask-image: radial-gradient(circle, #000, transparent))) {
+  .dotfield__glow {
+    display: none;
+  }
+}
+
+/* Garante que o conteúdo do bloco fique acima dos pontos. */
+.has-dots {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.has-dots > *:not(.dotfield) {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+ *  FUNDO DE PONTOS GLOBAL
+ * ----------------------------------------------------------------------- */
+.dot-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  --dot-x: -9999px;
+  --dot-y: -9999px;
+  opacity: 0;
+  transition: opacity 520ms var(--ease);
+}
+
+.dot-backdrop.is-on {
+  opacity: 1;
+}
+
+.dot-backdrop__base,
+.dot-backdrop__glow {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgb(var(--dot-rgb) / 1) 1px, transparent 1px);
+  background-size: var(--dot-gap) var(--dot-gap);
+}
+
+.dot-backdrop__base {
+  opacity: var(--dot-base);
+}
+
+.dot-backdrop__glow {
+  opacity: 0;
+  mask-image: radial-gradient(circle var(--dot-r) at var(--dot-x) var(--dot-y), #000 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle var(--dot-r) at var(--dot-x) var(--dot-y), #000 0%, transparent 70%);
+  transition: opacity var(--dur) var(--ease);
+}
+
+.dot-backdrop.is-live .dot-backdrop__glow {
+  opacity: var(--dot-glow);
+}
+
+@supports not ((mask-image: radial-gradient(circle, #000, transparent)) or
+               (-webkit-mask-image: radial-gradient(circle, #000, transparent))) {
+  .dot-backdrop__glow { display: none; }
+}
+
+main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ==========================================================================
+ * HEADER COMPACTO + AÇÕES FLUTUANTES GLOBAIS
+ * ======================================================================= */
+
+.header__inner,
+.header__logo,
+.header__nav,
+.header__link,
+.header__cta {
+  transition:
+    height var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    gap var(--dur) var(--ease),
+    font-size var(--dur) var(--ease);
+}
+
+.header.is-scrolled .header__inner {
+  height: 58px;
+}
+
+.header.is-scrolled .header__logo {
+  transform: scale(0.86);
+  transform-origin: left center;
+}
+
+.header.is-scrolled .header__nav {
+  gap: clamp(0.625rem, 1.5vw, 1.25rem);
+}
+
+.header.is-scrolled .header__link {
+  font-size: 0.875rem;
+}
+
+.header.is-scrolled .header__cta {
+  transform: scale(0.92);
+  transform-origin: right center;
+}
+
+.wa-fab {
+  right: clamp(1rem, 2.5vw, 1.75rem);
+  bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.wa-fab.is-disabled {
+  opacity: 0.58;
+  filter: grayscale(0.7);
+  cursor: not-allowed;
+}
+
+.backtop-fab {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 1.75rem);
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 68px);
+  z-index: 89;
+
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--fg);
+  box-shadow: 0 12px 28px -14px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  font-size: 1.35rem;
+  line-height: 1;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.9);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease),
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.backtop-fab.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+@media (pointer: fine) {
+  .backtop-fab:hover,
+  .backtop-fab:focus-visible {
+    background: var(--brand);
+    color: var(--brand-on);
+    transform: translateY(-3px);
+  }
+}
+
+@media (max-width: 720px) {
+  .header.is-scrolled .header__inner {
+    height: 56px;
+  }
+
+  .header.is-scrolled .header__logo {
+    transform: scale(0.82);
+  }
+
+  .wa-fab {
+    right: 14px;
+  }
+
+  .backtop-fab {
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 66px);
+  }
+}
+
+@supports not (background: color-mix(in srgb, red 50%, blue)) {
+  .backtop-fab {
+    background: var(--surface);
+  }
+}
+
+
+/* CORREÇÃO FINAL: HEADER FIXO E WHATSAPP */
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.wa-fab {
+  width: 56px;
+  min-width: 56px;
+  height: 56px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+  background: #25d366;
+}
+
+.wa-fab__icon {
+  width: 31px;
+  height: 31px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.wa-fab.is-disabled {
+  opacity: 0.72;
+  filter: none;
+}
+
+.wa-fab__label {
+  display: none;
+}
+
+
+/* ==========================================================================
+ * LOADER DA MARCA
+ * ======================================================================= */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #080807;
+  color: #f5f4ef;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 650ms var(--ease),
+    visibility 650ms var(--ease);
+}
+
+.loader.is-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader__glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgb(196 248 42 / 0.13) 0%,
+    rgb(196 248 42 / 0.035) 25%,
+    transparent 58%
+  );
+  animation: loader-glow 1.15s ease-in-out infinite;
+}
+
+.loader__logo {
+  position: relative;
+  z-index: 3;
+  width: min(54vw, 380px);
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 24px rgb(196 248 42 / 0.18));
+  animation: loader-logo-pulse 1.6s ease-in-out infinite;
+}
+
+.loader__logo-path {
+  fill: none;
+  stroke: url(#loader-gradient);
+  stroke-width: 24;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: loader-draw 2s cubic-bezier(0.65, 0, 0.35, 1) 120ms forwards;
+}
+
+.loader__text {
+  position: absolute;
+  z-index: 4;
+  top: calc(50% + min(29vw, 220px));
+  font-family: var(--font-mono);
+  font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  color: rgb(245 244 239 / 0.62);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: loader-text 450ms var(--ease) 1.85s forwards;
+}
+
+.loader__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.loader__particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size);
+  height: var(--size);
+  border: 0;
+  border-radius: 50%;
+  background: rgb(207 247 89 / var(--alpha));
+  box-shadow: 0 0 7px rgb(196 248 42 / 0.38);
+  filter: blur(var(--blur));
+  opacity: 0;
+  transform:
+    translate(
+      calc(-50% + var(--start-x)),
+      calc(-50% + var(--start-y))
+    )
+    scale(0.3);
+  animation:
+    loader-particle var(--duration)
+    cubic-bezier(0.16, 0.72, 0.3, 1)
+    var(--delay) both;
+}
+
+@keyframes loader-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes loader-fill {
+  to {
+    fill-opacity: 1;
+    stroke-width: 0;
+  }
+}
+
+@keyframes loader-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes loader-logo-pulse {
+  0%,
+  100% {
+    transform: scale(0.97);
+  }
+
+  50% {
+    transform: scale(1.025);
+  }
+}
+
+
+
+@keyframes loader-particle {
+  0% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--start-x)),
+        calc(-50% + var(--start-y))
+      )
+      scale(0.2);
+  }
+
+  14% {
+    opacity: var(--alpha);
+    transform:
+      translate(
+        calc(-50% + var(--start-x)),
+        calc(-50% + var(--start-y))
+      )
+      scale(1);
+  }
+
+  58% {
+    opacity: calc(var(--alpha) * 0.62);
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--end-x)),
+        calc(-50% + var(--end-y))
+      )
+      scale(0.1);
+  }
+}
+
+@keyframes loader-text {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .loader__logo {
+    width: min(76vw, 320px);
+  }
+
+  .loader__text {
+    top: calc(50% + min(40vw, 190px));
+    letter-spacing: 0.23em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__particles,
+  .loader__glow {
+    display: none;
+  }
+
+  .loader__logo,
+  .loader__logo-path,
+  .loader__text {
+    animation: none;
+  }
+
+  .loader__logo-path {
+    stroke-dashoffset: 0;
+  }
+
+  .loader__text {
+    opacity: 1;
+    transform: none;
+  }
+}

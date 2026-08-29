@@ -1,0 +1,249 @@
+/* ============================================================================
+ *  BASE
+ * ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--t-body);
+  line-height: 1.55;
+  background: var(--surface);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* trava scroll horizontal sem quebrar position: sticky */
+  overflow-x: clip;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--brand);
+  color: var(--brand-on);
+}
+
+/* --------------------------------------------------------------------------
+ *  FOCO VISÍVEL — obrigatório, nunca remover
+ * ----------------------------------------------------------------------- */
+:focus-visible {
+  outline: 3px solid var(--brand-text);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+ *  TIPOGRAFIA
+ * ----------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--t-h1);
+}
+h2 {
+  font-size: var(--t-h2);
+}
+h3 {
+  font-size: var(--t-h3);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-text);
+}
+
+.eyebrow--muted {
+  color: var(--fg-muted);
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--fg-muted);
+  max-width: 62ch;
+}
+
+/* --------------------------------------------------------------------------
+ *  LAYOUT
+ * ----------------------------------------------------------------------- */
+.shell {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+.section__head {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: min(100%, 52rem);
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.section__head--wide {
+  max-width: min(100%, 72rem);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 200;
+  background: var(--brand);
+  color: var(--brand-on);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-small);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
+}
+
+/* --------------------------------------------------------------------------
+ *  ETIQUETA DE PENDÊNCIA
+ *  Marca visualmente tudo que ainda é placeholder. Some sozinha quando os
+ *  dados reais entrarem em src/data/site.ts.
+ * ----------------------------------------------------------------------- */
+.pending-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border: 1px dashed var(--line-strong);
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+}
+
+.pending-tag::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+ *  REVEAL DE SCROLL
+ * ----------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--dur-slow) var(--ease),
+    transform var(--dur-slow) var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --------------------------------------------------------------------------
+ *  PREFERS-REDUCED-MOTION
+ *  Não removemos a intenção visual: os elementos continuam aparecendo com
+ *  fade curto, sem deslocamento, e os loops param.
+ * ----------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
