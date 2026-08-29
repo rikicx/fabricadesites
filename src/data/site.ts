@@ -90,10 +90,14 @@ export const links = {
 /* O checkout pode ser montado antes da definição do meio de pagamento.
  * Preencha a URL quando o link/preferência da operadora estiver disponível. */
 export const CHECKOUT = {
-  pagamentoUrl: '',
+  pagamentoMensalUrl: '',
+  pagamentoPixUrl: '',
 } as const
 
-export const checkoutConfigurado = CHECKOUT.pagamentoUrl.trim().length > 0
+export type FormaPagamento = 'mensal' | 'pix'
+
+export const obterPagamentoUrl = (forma: FormaPagamento) =>
+  forma === 'pix' ? CHECKOUT.pagamentoPixUrl : CHECKOUT.pagamentoMensalUrl
 
 /* ⚠ O valor de referência do .com.br (R$ 40/ano no Registro.br) aparece na
  * copy do checkout — em checkoutPagina.dominio.texto e resumo.dominioValor.
@@ -433,16 +437,14 @@ export const plano = {
   eyebrow: 'Plano de site',
   titulo: 'Quanto maior o plano, menor a mensalidade.',
   texto:
-    'No plano de 24 meses a mensalidade fica em R$ 80. Precisa de menos tempo de compromisso? O valor ajusta — entre R$ 80 e R$ 140 por mês.',
+    'No plano de 24 meses a mensalidade fica em R$ 80. Precisa de menos tempo de compromisso? O valor ajusta — entre R$ 80 e R$ 140 por mês. No Pix à vista, o período escolhido tem 5% de desconto.',
   cta: 'Quero começar',
   mesesMinimos: 10,
   mesesMaximos: 24,
   mensalidadeInicial: 140,
   mensalidadeFinal: 80,
-  /* Desconto do pagamento à vista sobre a soma das mensalidades do período.
-     ⚠ PENDENTE — confirmar o percentual real antes de publicar. Em 0, a
-     opção "à vista" não aparece no checkout. */
-  descontoAVista: 0.1,
+  /* Desconto do Pix à vista sobre a soma das mensalidades do período. */
+  descontoAVista: 0.05,
 } as const
 
 export function calcularPlano(meses: number) {
@@ -554,7 +556,7 @@ export const faq: Pergunta[] = [
   {
     pergunta: 'Como funciona o pagamento?',
     resposta:
-      'Você escolhe a duração do plano, de 10 a 24 meses. Quanto maior o plano, menor a mensalidade: de R$ 140 por mês em 10 meses a R$ 80 por mês em 24 meses. A mensalidade é fixa durante todo o período.',
+      'Você escolhe a duração do plano, de 10 a 24 meses. Quanto maior o plano, menor a mensalidade: de R$ 140 por mês em 10 meses a R$ 80 por mês em 24 meses. Pode pagar mensalmente ou antecipar o período escolhido via Pix com 5% de desconto.',
     pendente: false,
   },
 ]
@@ -808,8 +810,9 @@ export const checkoutPagina = {
     titulo: 'Resumo do pedido',
     plano: 'Plano de site',
     recorrencia: 'Duração do plano',
+    pagamento: 'Forma de pagamento',
     total: 'Valor total do plano',
-    aVista: 'À vista',
+    aVista: 'Desconto no Pix',
     dominio: 'Domínio (.com.br)',
     dominioValor: 'a partir de R$ 40/ano, à parte',
   },

@@ -136,6 +136,8 @@ export function Plan() {
      passa a ser "quero menos compromisso", não "descobri que é mais caro". */
   const [meses, setMeses] = useState<number>(plano.mesesMaximos)
   const opcao = calcularPlano(meses)
+  const descontoAVistaPct = Math.round(plano.descontoAVista * 100)
+  const totalAVista = Math.round(opcao.total * (1 - plano.descontoAVista))
   const progresso =
     ((meses - plano.mesesMinimos) /
       (plano.mesesMaximos - plano.mesesMinimos)) *
@@ -234,10 +236,21 @@ export function Plan() {
               <dt>Valor total do plano</dt>
               <dd>{moeda(opcao.total)}</dd>
             </div>
+            <div className="plan__avista">
+              <dt>
+                Pix à vista
+                <span>{descontoAVistaPct}% de desconto</span>
+              </dt>
+              <dd>{moeda(totalAVista)}</dd>
+            </div>
           </dl>
 
-          <RouteButton to="/checkout" variante="solido" className="plan__cta">
-            Contratar este plano
+          <RouteButton
+            to={`/checkout?meses=${opcao.meses}`}
+            variante="solido"
+            className="plan__cta"
+          >
+            Escolher forma de pagamento
           </RouteButton>
 
           <p className="plan__nota">

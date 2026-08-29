@@ -825,20 +825,22 @@ main,
 }
 
 .wa-fab {
-  width: 56px;
-  min-width: 56px;
-  height: 56px;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
   padding: 0;
   justify-content: center;
   border-radius: 50%;
-  background: #25d366;
+  background: var(--brand);
+  color: #080807;
+  box-shadow: 0 12px 26px -12px rgb(0 0 0 / 0.65);
 }
 
 .wa-fab__icon {
-  width: 31px;
-  height: 31px;
+  width: 23px;
+  height: 23px;
   object-fit: contain;
-  filter: brightness(0) invert(1);
+  filter: brightness(0);
 }
 
 .wa-fab.is-disabled {
@@ -848,6 +850,16 @@ main,
 
 .wa-fab__label {
   display: none;
+}
+
+.backtop-fab {
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 58px);
+}
+
+@media (max-width: 720px) {
+  .backtop-fab {
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 58px);
+  }
 }
 
 

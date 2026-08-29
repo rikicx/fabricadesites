@@ -1821,6 +1821,28 @@
   max-width: 24ch;
 }
 
+.plan__summary .plan__avista {
+  align-items: flex-start;
+  color: var(--brand-text);
+}
+
+.plan__avista dt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.plan__avista dt span {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.plan__avista dd {
+  color: var(--brand-text);
+}
+
 .plan__cta {
   margin-top: 0.25rem;
 }
