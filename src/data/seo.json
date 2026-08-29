@@ -9,8 +9,8 @@
   },
   "routes": {
     "/": {
-      "title": "Criação de Sites por Assinatura | Fábrica de Sites",
-      "description": "Sites para pequenos negócios a partir de R$ 80/mês. Direção de um designer sênior, velocidade de IA e menos trabalho para colocar sua empresa no ar.",
+      "title": "Criação de Sites para Pequenos Negócios | Fábrica de Sites",
+      "description": "Sites para pequenos negócios com direção humana, velocidade de IA e menos trabalho para colocar sua empresa no ar.",
       "index": true,
       "label": "Início"
     },
