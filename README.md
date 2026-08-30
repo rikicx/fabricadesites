@@ -12,14 +12,14 @@ npm run typecheck
 
 ---
 
-## ⚠ 1. Número de WhatsApp — a única coisa que ativa todos os CTAs
+## 1. Número de WhatsApp
 
 **Arquivo:** `src/data/site.ts`
 **Linha:** primeira propriedade do objeto `WHATSAPP`
 
 ```ts
 export const WHATSAPP = {
-  numero: '',   // ◀── AQUI
+  numero: '5511964101827',
 ```
 
 **Formato:** só dígitos, com código do país e DDD, sem espaços nem pontuação.
@@ -39,13 +39,7 @@ Esse único valor alimenta seis pontos do site:
 | Botão flutuante | `flutuante` |
 | Link do rodapé | `rodape` |
 
-**Comportamento enquanto estiver vazio (proposital):**
-
-- os botões aparecem em estado desabilitado com a etiqueta "WhatsApp pendente";
-- o botão flutuante não é renderizado;
-- em `npm run dev` aparece um aviso fixo no rodapé da tela.
-
-Isso existe para impedir que o site vá ao ar com link morto. Preencheu o número, tudo volta ao normal sozinho — nenhuma outra alteração é necessária.
+Contato configurado com o número comercial de Henrique.
 
 ---
 

@@ -7,7 +7,6 @@ import { BackToTopButton } from './components/BackToTopButton'
 import { DotBackdrop } from './components/DotBackdrop'
 import { ScrollManager } from './components/navigation'
 import { SeoManager } from './components/SeoManager'
-import { whatsappConfigurado } from './data/site'
 
 import Home from './pages/Home'
 import QuemSomos from './pages/QuemSomos'
@@ -28,13 +27,6 @@ export default function App() {
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
-
-      {import.meta.env.DEV && !whatsappConfigurado && (
-        <div className="dev-aviso" role="status">
-          WhatsApp não configurado — preencha <code>WHATSAPP.numero</code> em{' '}
-          <code>src/data/site.ts</code>
-        </div>
-      )}
 
       <ScrollManager />
       <SeoManager />

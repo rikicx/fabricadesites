@@ -533,30 +533,6 @@
 }
 
 /* --------------------------------------------------------------------------
- *  AVISO DE DESENVOLVIMENTO
- * ----------------------------------------------------------------------- */
-.dev-aviso {
-  position: fixed;
-  left: 50%;
-  bottom: 1rem;
-  transform: translateX(-50%);
-  z-index: 120;
-  background: var(--brand);
-  color: var(--brand-on);
-  padding: 0.5rem 0.875rem;
-  border-radius: 999px;
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.06em;
-  max-width: calc(100vw - 2rem);
-  text-align: center;
-}
-
-.dev-aviso code {
-  font-weight: 700;
-}
-
-/* --------------------------------------------------------------------------
  *  CAMPO DE PONTOS COM HOLOFOTE NO CURSOR
  *
  *  Duas camadas com a mesma grade. A de cima é revelada por uma máscara

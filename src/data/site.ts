@@ -8,11 +8,10 @@
  *  ┌──────────────────────────────────────────────────────────────────────┐
  *  │  ⚠  ITENS PENDENTES — PROCURE POR "PENDENTE" NESTE ARQUIVO           │
  *  │                                                                      │
- *  │  1. WHATSAPP.numero        → única alteração que ativa todos os CTAs │
- *  │  2. clientes[]             → logos reais (hoje: placeholders)        │
- *  │  3. projetos[]             → screenshots reais (hoje: placeholders)  │
- *  │  4. plano.condicoes[]      → condições comerciais não definidas      │
- *  │  5. links.politicaPrivacidade → URL da política                      │
+ *  │  1. clientes[]             → logos reais (hoje: placeholders)        │
+ *  │  2. projetos[]             → screenshots reais (hoje: placeholders)  │
+ *  │  3. plano.condicoes[]      → condições comerciais não definidas      │
+ *  │  4. links.politicaPrivacidade → URL da política                      │
  *  └──────────────────────────────────────────────────────────────────────┘
  * ========================================================================= */
 
@@ -37,13 +36,11 @@
  *                           ││ └───────────── DDD
  *                           └└──────────────── Brasil
  *
- *  ⚠ PENDENTE: enquanto `numero` estiver vazio, todos os CTAs ficam com
- *    estado desabilitado visível e o botão flutuante não é renderizado.
- *    Isso é proposital — evita publicar o site com link quebrado.
+ *  Contato configurado em 30/08/2026.
  * ------------------------------------------------------------------------ */
 export const WHATSAPP = {
-  /** ⚠ PENDENTE — preencher com o número real. Somente dígitos. Ex.: "5511987654321" */
-  numero: '',
+  /** Somente dígitos, com país e DDD. */
+  numero: '5511964101827',
 
   /** Mensagem pré-preenchida por origem do clique. Ajuda a saber de onde veio o lead. */
   mensagens: {
