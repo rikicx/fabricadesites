@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { WHATSAPP, contato, whatsappConfigurado } from '../data/site'
+import { WHATSAPP, contato } from '../data/site'
 import { PageHero } from '../components/navigation'
 import { Reveal } from '../components/primitives'
 
@@ -31,8 +31,8 @@ function FormularioWhatsApp() {
   }, [nome, negocio, segmento, mensagem])
 
   const numero = WHATSAPP.numero.replace(/\D/g, '')
-  const href = numero ? `https://wa.me/${numero}?text=${encodeURIComponent(texto)}` : null
-  const podeEnviar = nome.trim().length > 0 && Boolean(href)
+  const href = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`
+  const podeEnviar = nome.trim().length > 0
 
   return (
     <div className="form">
@@ -92,7 +92,7 @@ function FormularioWhatsApp() {
         <pre className="form__previa-texto">{texto}</pre>
       </div>
 
-      {href && podeEnviar ? (
+      {podeEnviar ? (
         <a href={href} target="_blank" rel="noopener noreferrer" className="btn btn--solido">
           <span className="btn__labels">
             <span className="btn__label">{contato.formulario.botao}</span>
@@ -111,7 +111,7 @@ function FormularioWhatsApp() {
             <span className="btn__label">{contato.formulario.botao}</span>
           </span>
           <span className="btn__pending">
-            {whatsappConfigurado ? 'preencha seu nome' : 'WhatsApp pendente'}
+            preencha seu nome
           </span>
         </span>
       )}

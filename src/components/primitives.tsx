@@ -3,11 +3,6 @@ import { Link } from 'react-router-dom'
 import { marca, linkWhatsApp, type OrigemWhatsApp } from '../data/site'
 import { useReveal, type Theme } from '../hooks'
 
-/* ==========================================================================
- *  LOGO
- *  ⚠ PLACEHOLDER — quadrado verde no lugar do monograma FS.
- *  Quando a identidade estiver pronta, troque só o conteúdo de .logo__mark.
- * ======================================================================== */
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <span className="logo" aria-label={marca.nome}>
@@ -120,11 +115,6 @@ export function RouteButton({
   )
 }
 
-/* --------------------------------------------------------------------------
- *  CTA DE WHATSAPP
- *  Enquanto o número não estiver configurado em src/data/site.ts, o botão
- *  aparece desabilitado com aviso — de propósito, para não publicar link morto.
- * ----------------------------------------------------------------------- */
 export function WhatsAppButton({
   origem,
   children,
@@ -139,17 +129,6 @@ export function WhatsAppButton({
   className?: string
 }) {
   const href = linkWhatsApp(origem)
-
-  if (!href) {
-    return (
-      <span className={`btn btn--${variante} btn--pendente ${className}`.trim()}>
-        <Rotulo>{children}</Rotulo>
-        <span className="btn__pending" title="Número de WhatsApp ainda não configurado">
-          WhatsApp pendente
-        </span>
-      </span>
-    )
-  }
 
   return (
     <a

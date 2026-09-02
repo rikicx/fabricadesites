@@ -31,8 +31,6 @@ export default function App() {
       <ScrollManager />
       <SeoManager />
 
-      {/* key força remontagem por rota: o observer precisa reavaliar se existe
-          um .hero na página nova. Só a home tem. */}
       <DotBackdrop key={pathname} />
 
       <Header />

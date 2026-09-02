@@ -770,20 +770,6 @@ a.canal__valor:hover {
   background: var(--surface-2);
 }
 
-.checkout-summary__plan {
-  width: 100%;
-}
-
-.checkout-summary__range-labels {
-  display: flex;
-  justify-content: space-between;
-  color: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 .checkout-summary__price {
   display: flex;
   flex-wrap: wrap;
@@ -900,7 +886,6 @@ a.canal__valor:hover {
   text-align: right;
 }
 
-/* Linha do pagamento à vista — destacada no verde-limão do site. */
 .checkout-summary__avista {
   align-items: flex-start;
 }
@@ -926,30 +911,6 @@ a.canal__valor:hover {
 .checkout-summary .btn {
   width: 100%;
   justify-content: space-between;
-}
-
-.checkout-summary__pending {
-  width: 100%;
-  padding: 1rem;
-  border: 1px solid var(--brand-text);
-  color: var(--fg);
-}
-
-.checkout-summary__pending p {
-  margin-top: 0.25rem;
-  color: var(--fg-muted);
-  font-size: var(--t-small);
-}
-
-.checkout-summary__dev {
-  color: var(--fg-muted);
-  font-size: var(--t-small);
-}
-
-.checkout-summary__dev code {
-  color: var(--brand-text);
-  font-family: var(--font-mono);
-  font-size: 0.8em;
 }
 
 /* --------------------------------------------------------------------------

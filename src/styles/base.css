@@ -177,33 +177,6 @@ p {
   transform: translate(-50%, 0);
 }
 
-/* --------------------------------------------------------------------------
- *  ETIQUETA DE PENDÊNCIA
- *  Marca visualmente tudo que ainda é placeholder. Some sozinha quando os
- *  dados reais entrarem em src/data/site.ts.
- * ----------------------------------------------------------------------- */
-.pending-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  border: 1px dashed var(--line-strong);
-  padding: 0.3rem 0.6rem;
-  border-radius: 999px;
-}
-
-.pending-tag::before {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0.7;
-}
 
 /* --------------------------------------------------------------------------
  *  REVEAL DE SCROLL

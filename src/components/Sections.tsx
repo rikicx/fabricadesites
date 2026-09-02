@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-  calcularPlano,
   ctaFinal,
   diferencial,
   faq,
@@ -10,6 +9,7 @@ import {
   navegacaoRodape,
   pacotes,
   plano,
+  valoresPlano,
   porque,
   rodape,
   linkWhatsApp,
@@ -132,20 +132,7 @@ export function Packages() {
  *  9. PLANO
  * ======================================================================== */
 export function Plan() {
-  /* Abre já no plano de 24 meses — o mesmo valor do hero (R$ 80). Deslizar
-     passa a ser "quero menos compromisso", não "descobri que é mais caro". */
-  const [meses, setMeses] = useState<number>(plano.mesesMaximos)
-  const opcao = calcularPlano(meses)
   const descontoAVistaPct = Math.round(plano.descontoAVista * 100)
-  const totalAVista = Math.round(opcao.total * (1 - plano.descontoAVista))
-  const progresso =
-    ((meses - plano.mesesMinimos) /
-      (plano.mesesMaximos - plano.mesesMinimos)) *
-    100
-  const marcacoes = Array.from(
-    { length: plano.mesesMaximos - plano.mesesMinimos + 1 },
-    (_, index) => plano.mesesMinimos + index,
-  )
   const moeda = (valor: number) =>
     new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -163,90 +150,30 @@ export function Plan() {
         </Reveal>
 
         <Reveal className="plan__card" delay={100}>
-          <div className="plan__picker">
-            <div className="plan__picker-head">
-              <span>Plano de</span>
-              <strong>{opcao.meses} meses</strong>
-            </div>
+          <div className="plan__options" role="list">
+            <article className="plan__option" role="listitem">
+              <span className="plan__option-label">Cartão</span>
+              <div className="plan__option-price">
+                <strong>{plano.parcelas}x</strong>
+                <span>de {moeda(plano.valorParcela)}</span>
+              </div>
+              <p>Total de {moeda(valoresPlano.total)}</p>
+            </article>
 
-            <input
-              className="plan__range"
-              type="range"
-              min={plano.mesesMinimos}
-              max={plano.mesesMaximos}
-              step="1"
-              value={meses}
-              onChange={(event) => setMeses(Number(event.target.value))}
-              aria-label="Escolher a duração do plano"
-              aria-valuetext={`${opcao.meses} meses, ${moeda(opcao.mensalidade)} por mês`}
-              style={{ ['--range-progress' as string]: `${progresso}%` }}
-            />
-
-            <div className="plan__ticks" aria-label="Atalhos de período">
-              {marcacoes.map((marcacao) => (
-                <button
-                  key={marcacao}
-                  className={marcacao <= meses ? 'is-active' : ''}
-                  type="button"
-                  aria-label={`Selecionar ${marcacao} meses`}
-                  aria-pressed={marcacao === meses}
-                  onClick={() => setMeses(marcacao)}
-                >
-                  <span aria-hidden="true" />
-                </button>
-              ))}
-            </div>
-
-            <div className="plan__range-labels">
-              <button
-                type="button"
-                className={meses === plano.mesesMinimos ? 'is-active' : ''}
-                onClick={() => setMeses(plano.mesesMinimos)}
-              >
-                {plano.mesesMinimos} meses
-              </button>
-              <span>
-                R$ {plano.mensalidadeInicial} → R$ {plano.mensalidadeFinal}
-              </span>
-              <button
-                type="button"
-                className={meses === plano.mesesMaximos ? 'is-active' : ''}
-                onClick={() => setMeses(plano.mesesMaximos)}
-              >
-                {plano.mesesMaximos} meses
-              </button>
-            </div>
-          </div>
-
-          <div className="plan__price">
-            <span className="plan__price-prefixo">mensalidade</span>
-            <span className="plan__price-valor">{moeda(opcao.mensalidade)}</span>
-            <span className="plan__price-periodo">/mês</span>
-            {opcao.meses === plano.mesesMaximos && (
-              <span className="plan__price-tag">melhor preço</span>
-            )}
-          </div>
-
-          <dl className="plan__summary">
-            <div>
-              <dt>Duração do plano</dt>
-              <dd>{opcao.meses} meses</dd>
-            </div>
-            <div>
-              <dt>Valor total do plano</dt>
-              <dd>{moeda(opcao.total)}</dd>
-            </div>
-            <div className="plan__avista">
-              <dt>
+            <article className="plan__option plan__option--featured" role="listitem">
+              <span className="plan__option-label">
                 Pix à vista
-                <span>{descontoAVistaPct}% de desconto</span>
-              </dt>
-              <dd>{moeda(totalAVista)}</dd>
-            </div>
-          </dl>
+                <em>{descontoAVistaPct}% de desconto</em>
+              </span>
+              <div className="plan__option-price">
+                <strong>{moeda(valoresPlano.totalAVista)}</strong>
+              </div>
+              <p>Você economiza {moeda(valoresPlano.economiaAVista)}</p>
+            </article>
+          </div>
 
           <RouteButton
-            to={`/checkout?meses=${opcao.meses}`}
+            to="/checkout"
             variante="solido"
             className="plan__cta"
           >
@@ -254,11 +181,9 @@ export function Plan() {
           </RouteButton>
 
           <p className="plan__nota">
-            A mensalidade é fixa durante todo o plano.
-            {opcao.meses !== plano.mesesMaximos &&
-              ` No plano de ${plano.mesesMaximos} meses ela fica em ${moeda(
-                plano.mensalidadeFinal,
-              )}.`}
+            Os valores acima são referentes à criação do site. A manutenção
+            mensal de {moeda(plano.manutencaoMensal)} não está incluída e é
+            cobrada à parte. O domínio também é pago separadamente.
           </p>
         </Reveal>
       </div>
@@ -271,7 +196,6 @@ export function Plan() {
  * ======================================================================== */
 export function Faq() {
   const [aberto, setAberto] = useState<number | null>(0)
-  const itensPublicos = faq.filter((item) => !item.pendente)
 
   return (
     <section className="section faq" id="duvidas">
@@ -288,7 +212,7 @@ export function Faq() {
         </Reveal>
 
         <div className="faq__lista">
-          {itensPublicos.map((item, i) => {
+          {faq.map((item, i) => {
             const estaAberto = aberto === i
             return (
               <Reveal key={item.pergunta} delay={i * 50}>
@@ -391,11 +315,9 @@ export function Footer() {
         </nav>
 
         <div className="footer__contato">
-          {wa ? (
-            <a href={wa} target="_blank" rel="noopener noreferrer" className="footer__wa">
-              WhatsApp ↗
-            </a>
-          ) : null}
+          <a href={wa} target="_blank" rel="noopener noreferrer" className="footer__wa">
+            WhatsApp ↗
+          </a>
           {links.politicaPrivacidade && (
             <a href={links.politicaPrivacidade} className="footer__politica">
               Política de privacidade

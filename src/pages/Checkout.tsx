@@ -7,10 +7,11 @@ import {
 import { PageHero } from '../components/navigation'
 import { Reveal } from '../components/primitives'
 import {
-  calcularPlano,
   checkoutPagina,
+  linkWhatsApp,
   obterPagamentoUrl,
   plano,
+  valoresPlano,
   type FormaPagamento,
 } from '../data/site'
 import { useSearchParams } from 'react-router-dom'
@@ -54,32 +55,18 @@ const moeda = (valor: number) =>
 
 export default function Checkout() {
   const [parametros] = useSearchParams()
-  const mesesParam = parametros.get('meses')
-  const mesesDoLink = mesesParam === null ? Number.NaN : Number(mesesParam)
-  const mesesIniciais = Number.isFinite(mesesDoLink)
-    ? calcularPlano(mesesDoLink).meses
-    : plano.mesesMaximos
   const pagamentoInicial: FormaPagamento =
-    parametros.get('pagamento') === 'pix' ? 'pix' : 'mensal'
+    parametros.get('pagamento') === 'pix' ? 'pix' : 'cartao'
   const [dados, setDados] = useState<DadosCheckout>(dadosIniciais)
-  const [meses, setMeses] = useState<number>(mesesIniciais)
   const [formaPagamento, setFormaPagamento] =
     useState<FormaPagamento>(pagamentoInicial)
   const [revisado, setRevisado] = useState(false)
-  const opcao = calcularPlano(meses)
   const descontoAVistaPct = Math.round(plano.descontoAVista * 100)
-  const totalAVista = Math.round(opcao.total * (1 - plano.descontoAVista))
-  const economiaAVista = opcao.total - totalAVista
   const pagamentoUrl = obterPagamentoUrl(formaPagamento)
   const pagamentoConfigurado = pagamentoUrl.trim().length > 0
-  const marcacoes = Array.from(
-    { length: plano.mesesMaximos - plano.mesesMinimos + 1 },
-    (_, index) => plano.mesesMinimos + index,
-  )
-  const progresso =
-    ((meses - plano.mesesMinimos) /
-      (plano.mesesMaximos - plano.mesesMinimos)) *
-    100
+  const continuarUrl = pagamentoConfigurado
+    ? pagamentoUrl
+    : linkWhatsApp('plano')
 
   const alterar =
     (campo: keyof DadosCheckout) =>
@@ -247,62 +234,21 @@ export default function Checkout() {
           <Reveal className="checkout-summary" delay={100}>
             <p className="eyebrow">{checkoutPagina.resumo.titulo}</p>
 
-            <div className="checkout-summary__plan">
-              <div className="plan__picker-head">
-                <span>{checkoutPagina.resumo.recorrencia}</span>
-                <strong>{meses} meses</strong>
-              </div>
-              <input
-                className="plan__range"
-                type="range"
-                min={plano.mesesMinimos}
-                max={plano.mesesMaximos}
-                step="1"
-                value={meses}
-                onChange={(event) => {
-                  setMeses(Number(event.target.value))
-                  setRevisado(false)
-                }}
-                aria-label="Escolher a duração do plano"
-                aria-valuetext={`${meses} meses, ${moeda(opcao.mensalidade)} por mês`}
-                style={{ ['--range-progress' as string]: `${progresso}%` }}
-              />
-              <div className="plan__ticks" aria-label="Atalhos de período">
-                {marcacoes.map((marcacao) => (
-                  <button
-                    key={marcacao}
-                    className={marcacao <= meses ? 'is-active' : ''}
-                    type="button"
-                    aria-label={`Selecionar ${marcacao} meses no checkout`}
-                    aria-pressed={marcacao === meses}
-                    onClick={() => {
-                      setMeses(marcacao)
-                      setRevisado(false)
-                    }}
-                  >
-                    <span aria-hidden="true" />
-                  </button>
-                ))}
-              </div>
-              <div className="checkout-summary__range-labels">
-                <span>{plano.mesesMinimos} meses</span>
-                <span>{plano.mesesMaximos} meses</span>
-              </div>
-            </div>
-
             <div className="checkout-summary__price">
               <span>
                 {formaPagamento === 'pix'
                   ? `Pix à vista · ${descontoAVistaPct}% de desconto`
-                  : 'Mensalidade'}
+                  : `Cartão em ${plano.parcelas}x`}
               </span>
               <strong>
                 {moeda(
-                  formaPagamento === 'pix' ? totalAVista : opcao.mensalidade,
+                  formaPagamento === 'pix'
+                    ? valoresPlano.totalAVista
+                    : plano.valorParcela,
                 )}
               </strong>
               <em>
-                {formaPagamento === 'pix' ? 'pagamento único' : '/mês'}
+                {formaPagamento === 'pix' ? 'pagamento único' : 'por parcela'}
               </em>
             </div>
 
@@ -310,25 +256,26 @@ export default function Checkout() {
               <legend>{checkoutPagina.resumo.pagamento}</legend>
               <label
                 className={`checkout-payment__option ${
-                  formaPagamento === 'mensal' ? 'is-selected' : ''
+                  formaPagamento === 'cartao' ? 'is-selected' : ''
                 }`}
               >
                 <input
                   type="radio"
                   name="formaPagamento"
-                  value="mensal"
-                  checked={formaPagamento === 'mensal'}
+                  value="cartao"
+                  checked={formaPagamento === 'cartao'}
                   onChange={() => {
-                    setFormaPagamento('mensal')
+                    setFormaPagamento('cartao')
                     setRevisado(false)
                   }}
                 />
                 <span>
-                  <strong>Mensal</strong>
+                  <strong>Cartão</strong>
                   <small>
-                    {opcao.meses}x de {moeda(opcao.mensalidade)}
+                    {plano.parcelas}x de {moeda(plano.valorParcela)}
                   </small>
                 </span>
+                <em>{moeda(valoresPlano.total)}</em>
               </label>
               <label
                 className={`checkout-payment__option ${
@@ -349,36 +296,50 @@ export default function Checkout() {
                   <strong>Pix à vista</strong>
                   <small>{descontoAVistaPct}% de desconto</small>
                 </span>
-                <em>{moeda(totalAVista)}</em>
+                <em>{moeda(valoresPlano.totalAVista)}</em>
               </label>
             </fieldset>
 
             <dl className="checkout-summary__details">
               <div>
-                <dt>{checkoutPagina.resumo.recorrencia}</dt>
-                <dd>{opcao.meses} meses</dd>
+                <dt>{checkoutPagina.resumo.parcelamento}</dt>
+                <dd>
+                  {formaPagamento === 'pix'
+                    ? 'À vista'
+                    : `${plano.parcelas} parcelas`}
+                </dd>
               </div>
               <div>
                 <dt>{checkoutPagina.resumo.pagamento}</dt>
                 <dd>
-                  {formaPagamento === 'pix' ? 'Pix à vista' : 'Mensal'}
+                  {formaPagamento === 'pix' ? 'Pix' : 'Cartão'}
                 </dd>
               </div>
               <div>
                 <dt>{checkoutPagina.resumo.total}</dt>
-                <dd>{moeda(opcao.total)}</dd>
+                <dd>
+                  {moeda(
+                    formaPagamento === 'pix'
+                      ? valoresPlano.totalAVista
+                      : valoresPlano.total,
+                  )}
+                </dd>
               </div>
               {formaPagamento === 'pix' && (
                 <div className="checkout-summary__avista">
                   <dt>
                     {checkoutPagina.resumo.aVista}
                     <span>
-                      economize {moeda(economiaAVista)}
+                      economize {moeda(valoresPlano.economiaAVista)}
                     </span>
                   </dt>
-                  <dd>− {moeda(economiaAVista)}</dd>
+                  <dd>− {moeda(valoresPlano.economiaAVista)}</dd>
                 </div>
               )}
+              <div>
+                <dt>{checkoutPagina.resumo.manutencao}</dt>
+                <dd>{moeda(plano.manutencaoMensal)}/mês, à parte</dd>
+              </div>
               <div>
                 <dt>{checkoutPagina.resumo.dominio}</dt>
                 <dd>{checkoutPagina.resumo.dominioValor}</dd>
@@ -390,35 +351,15 @@ export default function Checkout() {
                 Revisar e continuar
                 <span aria-hidden="true">↗</span>
               </button>
-            ) : pagamentoConfigurado ? (
-              <a className="btn btn--solido" href={pagamentoUrl}>
-                {formaPagamento === 'pix'
-                  ? 'Pagar à vista com Pix'
-                  : 'Ir para o pagamento mensal'}
+            ) : (
+              <a className="btn btn--solido" href={continuarUrl}>
+                {pagamentoConfigurado
+                  ? formaPagamento === 'pix'
+                    ? 'Pagar à vista com Pix'
+                    : 'Pagar em 10x no cartão'
+                  : 'Continuar a contratação'}
                 <span aria-hidden="true">↗</span>
               </a>
-            ) : (
-              <div className="checkout-summary__pending" role="status">
-                <strong>Pedido revisado.</strong>
-                <p>
-                  Falta conectar o link de pagamento{' '}
-                  {formaPagamento === 'pix' ? 'do Pix' : 'mensal'} para concluir
-                  a compra online.
-                </p>
-              </div>
-            )}
-
-            {!pagamentoConfigurado && import.meta.env.DEV && (
-              <p className="checkout-summary__dev">
-                Configure{' '}
-                <code>
-                  CHECKOUT.
-                  {formaPagamento === 'pix'
-                    ? 'pagamentoPixUrl'
-                    : 'pagamentoMensalUrl'}
-                </code>{' '}
-                em <code>src/data/site.ts</code>.
-              </p>
             )}
           </Reveal>
         </div>

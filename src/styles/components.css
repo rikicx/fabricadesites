@@ -2,9 +2,6 @@
  *  COMPONENTES
  * ========================================================================= */
 
-/* --------------------------------------------------------------------------
- *  LOGO  ⚠ quadrado verde como placeholder do monograma FS
- * ----------------------------------------------------------------------- */
 .logo {
   display: inline-flex;
   align-items: center;
@@ -710,12 +707,6 @@ main,
   bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
-.wa-fab.is-disabled {
-  opacity: 0.58;
-  filter: grayscale(0.7);
-  cursor: not-allowed;
-}
-
 .backtop-fab {
   position: fixed;
   right: clamp(1rem, 2.5vw, 1.75rem);
@@ -817,11 +808,6 @@ main,
   height: 23px;
   object-fit: contain;
   filter: brightness(0);
-}
-
-.wa-fab.is-disabled {
-  opacity: 0.72;
-  filter: none;
 }
 
 .wa-fab__label {

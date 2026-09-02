@@ -1,48 +1,5 @@
-/* ============================================================================
- *  FÁBRICA DE SITES — ARQUIVO ÚNICO DE CONTEÚDO E CONFIGURAÇÃO
- * ============================================================================
- *
- *  Tudo que é texto, link, preço, projeto ou informação comercial vive aqui.
- *  Nenhum componente deve conter conteúdo hardcoded.
- *
- *  ┌──────────────────────────────────────────────────────────────────────┐
- *  │  ⚠  ITENS PENDENTES — PROCURE POR "PENDENTE" NESTE ARQUIVO           │
- *  │                                                                      │
- *  │  1. clientes[]             → logos reais (hoje: placeholders)        │
- *  │  2. projetos[]             → screenshots reais (hoje: placeholders)  │
- *  │  3. plano.condicoes[]      → condições comerciais não definidas      │
- *  │  4. links.politicaPrivacidade → URL da política                      │
- *  └──────────────────────────────────────────────────────────────────────┘
- * ========================================================================= */
-
-/* ---------------------------------------------------------------------------
- *  1. WHATSAPP  ◀── ALTERE AQUI E PRONTO
- * ---------------------------------------------------------------------------
- *  O número é usado por:
- *    · CTA principal do hero  ("Quero ver uma prévia")
- *    · CTA do header          ("Quero meu site")
- *    · CTA da seção Plano     ("Quero conversar")
- *    · CTA final              ("Quero ver uma prévia")
- *    · Botão flutuante de WhatsApp
- *    · Link do rodapé
- *
- *  FORMATO OBRIGATÓRIO: apenas dígitos, com código do país e DDD, sem
- *  espaços, sinais ou pontuação.
- *
- *      País (55) + DDD (2 dígitos) + número (8 ou 9 dígitos)
- *
- *      Exemplo de formato: "5511987654321"
- *                           ││ ││ └────────── número
- *                           ││ └───────────── DDD
- *                           └└──────────────── Brasil
- *
- *  Contato configurado em 30/08/2026.
- * ------------------------------------------------------------------------ */
 export const WHATSAPP = {
-  /** Somente dígitos, com país e DDD. */
   numero: '5511964101827',
-
-  /** Mensagem pré-preenchida por origem do clique. Ajuda a saber de onde veio o lead. */
   mensagens: {
     hero: 'Olá! Vim pelo site da Fábrica de Sites e quero ver uma prévia do meu site.',
     header: 'Olá! Vim pelo site da Fábrica de Sites e quero fazer meu site.',
@@ -60,15 +17,10 @@ export const WHATSAPP = {
 
 export type OrigemWhatsApp = keyof typeof WHATSAPP.mensagens
 
-/** Monta a URL do WhatsApp. Devolve null quando o número ainda não foi definido. */
-export function linkWhatsApp(origem: OrigemWhatsApp): string | null {
+export function linkWhatsApp(origem: OrigemWhatsApp): string {
   const numero = WHATSAPP.numero.replace(/\D/g, '')
-  if (!numero) return null
   return `https://wa.me/${numero}?text=${encodeURIComponent(WHATSAPP.mensagens[origem])}`
 }
-
-/** true quando o número já foi configurado. */
-export const whatsappConfigurado = WHATSAPP.numero.replace(/\D/g, '').length > 0
 
 /* ---------------------------------------------------------------------------
  *  2. MARCA E LINKS
@@ -80,30 +32,19 @@ export const marca = {
 } as const
 
 export const links = {
-  /** Preencher quando a página existir. Enquanto estiver nulo, o link não aparece. */
   politicaPrivacidade: null as string | null,
 } as const
 
-/* O checkout pode ser montado antes da definição do meio de pagamento.
- * Preencha a URL quando o link/preferência da operadora estiver disponível. */
 export const CHECKOUT = {
-  pagamentoMensalUrl: '',
+  pagamentoCartaoUrl: '',
   pagamentoPixUrl: '',
 } as const
 
-export type FormaPagamento = 'mensal' | 'pix'
+export type FormaPagamento = 'cartao' | 'pix'
 
 export const obterPagamentoUrl = (forma: FormaPagamento) =>
-  forma === 'pix' ? CHECKOUT.pagamentoPixUrl : CHECKOUT.pagamentoMensalUrl
+  forma === 'pix' ? CHECKOUT.pagamentoPixUrl : CHECKOUT.pagamentoCartaoUrl
 
-/* ⚠ O valor de referência do .com.br (R$ 40/ano no Registro.br) aparece na
- * copy do checkout — em checkoutPagina.dominio.texto e resumo.dominioValor.
- * Conferir o preço atual em registro.br antes de publicar. */
-
-/* Navegação principal.
- * `href` que começa com '/' e não tem '#' é rota.
- * `href` com '#' é âncora — sempre prefixada com a rota onde a seção existe,
- * para funcionar também quando o usuário está em outra página. */
 export const navegacao = [
   { rotulo: 'Serviços', href: '/servicos' },
   { rotulo: 'Como fazemos', href: '/como-fazemos' },
@@ -112,7 +53,6 @@ export const navegacao = [
   { rotulo: 'Contato', href: '/contato' },
 ] as const
 
-/** Links secundários — só no rodapé, para não inchar o header. */
 export const navegacaoRodape = [
   { rotulo: 'Contratar online', href: '/checkout' },
   { rotulo: 'Nosso trabalho', href: '/#nosso-trabalho' },
@@ -125,11 +65,11 @@ export const navegacaoRodape = [
  *  3. PREÇO
  * ------------------------------------------------------------------------ */
 export const preco = {
-  valor: 'R$ 80',
-  periodo: '/mês',
-  chamada: 'Sites a partir de R$ 80/mês.',
-  prefixo: 'a partir de',
-  observacao: 'no plano de 24 meses',
+  valor: 'R$ 140',
+  periodo: '',
+  chamada: 'Seu site em 10x de R$ 140.',
+  prefixo: 'cartão em 10x de',
+  observacao: 'ou R$ 1.330 à vista no Pix',
 } as const
 
 /* ---------------------------------------------------------------------------
@@ -145,111 +85,25 @@ export const hero = {
   ctaSecundario: 'Ver sites criados',
 } as const
 
-/* ---------------------------------------------------------------------------
- *  5. CLIENTES (faixa de logos)
- * ---------------------------------------------------------------------------
- *  ⚠ PENDENTE — nenhuma empresa real está listada. Todos os itens abaixo são
- *  placeholders declarados. Para publicar:
- *    · substitua `nome` pelo nome real do negócio atendido;
- *    · coloque o arquivo em /public/clientes/ e ajuste `logo`;
- *    · marque `placeholder: false`.
- *  A seção inteira some do site quando não houver nenhum item com
- *  placeholder: false — ver `mostrarProvaVisual` abaixo.
- * ------------------------------------------------------------------------ */
 export type Cliente = {
   nome: string
   logo: string
-  placeholder: boolean
 }
 
-export const clientes: Cliente[] = [
-  { nome: 'Cliente 01', logo: '/placeholders/logo-01.png', placeholder: true },
-  { nome: 'Cliente 02', logo: '/placeholders/logo-02.png', placeholder: true },
-  { nome: 'Cliente 03', logo: '/placeholders/logo-03.png', placeholder: true },
-  { nome: 'Cliente 04', logo: '/placeholders/logo-04.png', placeholder: true },
-  { nome: 'Cliente 05', logo: '/placeholders/logo-05.png', placeholder: true },
-  { nome: 'Cliente 06', logo: '/placeholders/logo-06.png', placeholder: true },
-  { nome: 'Cliente 07', logo: '/placeholders/logo-07.png', placeholder: true },
-  { nome: 'Cliente 08', logo: '/placeholders/logo-08.png', placeholder: true },
-]
+export const clientes: Cliente[] = []
 
-/* ---------------------------------------------------------------------------
- *  6. PROJETOS (portfólio)
- * ---------------------------------------------------------------------------
- *  ⚠ PENDENTE — screenshots reais. Nenhuma métrica ou resultado deve ser
- *  adicionado aqui sem comprovação.
- *  `link` pode ficar como null enquanto o site não estiver no ar.
- * ------------------------------------------------------------------------ */
 export type Projeto = {
   nome: string
   segmento: string
   servico: string
   imagem: string
   link: string | null
-  placeholder: boolean
-  /** 'alta' = card mais alto, cria o ritmo editorial alternado */
   formato: 'alta' | 'larga'
 }
 
-export const projetos: Projeto[] = [
-  {
-    nome: 'Projeto 01',
-    segmento: 'Barbearia',
-    servico: 'Site institucional',
-    imagem: '/placeholders/site-clube-da-navalha.png',
-    link: null,
-    placeholder: true,
-    formato: 'larga',
-  },
-  {
-    nome: 'Projeto 02',
-    segmento: 'Panificação',
-    servico: 'Site institucional',
-    imagem: '/placeholders/site-padaria-industrial.png',
-    link: null,
-    placeholder: true,
-    formato: 'alta',
-  },
-  {
-    nome: 'Projeto 03',
-    segmento: 'Engenharia',
-    servico: 'Site institucional',
-    imagem: '/placeholders/site-felice-engenharia.png',
-    link: null,
-    placeholder: true,
-    formato: 'alta',
-  },
-  {
-    nome: 'Projeto 04',
-    segmento: 'Odontologia',
-    servico: 'Landing page',
-    imagem: '/placeholders/site-consultorio-odonto.png',
-    link: null,
-    placeholder: true,
-    formato: 'larga',
-  },
-  {
-    nome: 'Projeto 05',
-    segmento: 'Consultoria de vendas',
-    servico: 'Site institucional',
-    imagem: '/placeholders/site-consultoria-natura.png',
-    link: null,
-    placeholder: true,
-    formato: 'larga',
-  },
-  {
-    nome: 'Projeto 06',
-    segmento: 'Serviços locais',
-    servico: 'Site institucional',
-    imagem: '/placeholders/site-projeto-06.png',
-    link: null,
-    placeholder: true,
-    formato: 'alta',
-  },
-]
+export const projetos: Projeto[] = []
 
-/** A faixa de logos só aparece quando existir pelo menos um cliente real. */
-export const mostrarProvaVisual = clientes.some((c) => !c.placeholder)
+export const mostrarProvaVisual = clientes.length > 0 || projetos.length > 0
 
 /* ---------------------------------------------------------------------------
  *  7. BAIXO ESFORÇO / PROCESSO
@@ -422,47 +276,26 @@ export const porQueFazemosPagina = {
   },
 } as const
 
-/* ---------------------------------------------------------------------------
- *  10. PLANO
- * ---------------------------------------------------------------------------
- *  Só entram aqui informações CONFIRMADAS.
- *  ⚠ PENDENTE: as condições abaixo ainda não foram definidas. Enquanto
- *  `definido: false`, o item NÃO é exibido no site. Quando decidir, escreva o
- *  valor em `valor` e marque `definido: true`.
- * ------------------------------------------------------------------------ */
 export const plano = {
   eyebrow: 'Plano de site',
-  titulo: 'Quanto maior o plano, menor a mensalidade.',
+  titulo: 'Um preço claro. Duas formas de pagamento.',
   texto:
-    'No plano de 24 meses a mensalidade fica em R$ 80. Precisa de menos tempo de compromisso? O valor ajusta — entre R$ 80 e R$ 140 por mês. No Pix à vista, o período escolhido tem 5% de desconto.',
+    'Escolha entre 10 parcelas de R$ 140 no cartão ou pagamento à vista no Pix com 5% de desconto.',
   cta: 'Quero começar',
-  mesesMinimos: 10,
-  mesesMaximos: 24,
-  mensalidadeInicial: 140,
-  mensalidadeFinal: 80,
-  /* Desconto do Pix à vista sobre a soma das mensalidades do período. */
+  parcelas: 10,
+  valorParcela: 140,
   descontoAVista: 0.05,
+  manutencaoMensal: 50,
 } as const
 
-export function calcularPlano(meses: number) {
-  const mesesLimitados = Math.min(
-    plano.mesesMaximos,
-    Math.max(plano.mesesMinimos, Math.round(meses)),
-  )
-  const progresso =
-    (mesesLimitados - plano.mesesMinimos) /
-    (plano.mesesMaximos - plano.mesesMinimos)
-  const mensalidade = Math.round(
-    plano.mensalidadeInicial +
-      (plano.mensalidadeFinal - plano.mensalidadeInicial) * progresso,
-  )
+const totalPlano = plano.parcelas * plano.valorParcela
+const totalAVista = Math.round(totalPlano * (1 - plano.descontoAVista))
 
-  return {
-    meses: mesesLimitados,
-    mensalidade,
-    total: mesesLimitados * mensalidade,
-  }
-}
+export const valoresPlano = {
+  total: totalPlano,
+  totalAVista,
+  economiaAVista: totalPlano - totalAVista,
+} as const
 
 /* ---------------------------------------------------------------------------
  *  10.1 PACOTES
@@ -503,20 +336,12 @@ export const pacotes = {
     },
   ],
   nota:
-    'Os valores de identidade visual e e-commerce dependem do escopo. O seletor abaixo apresenta somente os planos de site.',
+    'Os valores de identidade visual e e-commerce dependem do escopo. As condições abaixo se referem ao plano de site.',
 } as const
 
-/* ---------------------------------------------------------------------------
- *  11. FAQ
- * ---------------------------------------------------------------------------
- *  `pendente: true` marca respostas que dependem de decisão comercial ainda
- *  não tomada. Elas aparecem no site com a resposta possível hoje, sem
- *  inventar condição. Revise todas antes de publicar.
- * ------------------------------------------------------------------------ */
 export type Pergunta = {
   pergunta: string
   resposta: string
-  pendente: boolean
 }
 
 export const faq: Pergunta[] = [
@@ -524,37 +349,21 @@ export const faq: Pergunta[] = [
     pergunta: 'Preciso escrever os textos?',
     resposta:
       'Não. Nós pesquisamos o que seu negócio já comunica e escrevemos uma primeira versão. Você lê, corrige o que estiver errado e confirma. Se quiser escrever alguma parte, também dá.',
-    pendente: false,
   },
   {
     pergunta: 'O site é feito somente por inteligência artificial?',
     resposta:
       'Não. A IA acelera pesquisa e produção. As decisões de estrutura, conteúdo, hierarquia, identidade e acessibilidade são conduzidas por um designer sênior, que revisa tudo antes de você ver.',
-    pendente: false,
   },
   {
     pergunta: 'Já tenho Instagram. Ainda preciso de um site?',
     resposta:
       'O Instagram é ótimo para mostrar o dia a dia, mas ele é da plataforma, não seu. O site é um endereço próprio, que aparece na busca, funciona sem algoritmo e concentra o que alguém precisa saber para te contratar. Um não substitui o outro.',
-    pendente: false,
-  },
-  {
-    pergunta: 'Posso usar meu próprio domínio?',
-    resposta:
-      'Sim, é possível apontar um domínio que você já tenha. As condições de domínio incluso ainda estão sendo definidas — fale com a gente e explicamos a situação do seu caso.',
-    pendente: true,
-  },
-  {
-    pergunta: 'Posso pedir alterações?',
-    resposta:
-      'Sim. A revisão faz parte do processo antes de publicar. A quantidade de alterações incluídas no plano ainda está sendo definida — combinamos isso na conversa.',
-    pendente: true,
   },
   {
     pergunta: 'Como funciona o pagamento?',
     resposta:
-      'Você escolhe a duração do plano, de 10 a 24 meses. Quanto maior o plano, menor a mensalidade: de R$ 140 por mês em 10 meses a R$ 80 por mês em 24 meses. Pode pagar mensalmente ou antecipar o período escolhido via Pix com 5% de desconto.',
-    pendente: false,
+      'A criação do site pode ser paga em 10 parcelas de R$ 140 no cartão ou R$ 1.330 à vista no Pix, com 5% de desconto. A manutenção mensal de R$ 50 e o domínio são cobrados à parte.',
   },
 ]
 
@@ -628,7 +437,6 @@ export const quemSomos = {
     },
   ],
 
-  /* ⚠ PENDENTE — nada aqui aparece no site enquanto `definido` for false. */
   responsavel: {
     definido: false,
     nome: null as string | null,
@@ -637,7 +445,6 @@ export const quemSomos = {
     foto: null as string | null,
   },
 
-  /* ⚠ PENDENTE — não inventar métricas. Item sem `valor` não é renderizado. */
   numeros: [
     { rotulo: 'Anos de experiência em design', valor: null as string | null },
     { rotulo: 'Sites publicados', valor: null as string | null },
@@ -654,7 +461,6 @@ export type Servico = {
   paraQuem: string
   descricao: string
   inclui: string[]
-  pendente: boolean
 }
 
 export const servicos: Servico[] = [
@@ -670,7 +476,6 @@ export const servicos: Servico[] = [
       'Leitura no celular',
       'Botão de WhatsApp',
     ],
-    pendente: false,
   },
   {
     id: 'institucional',
@@ -683,7 +488,6 @@ export const servicos: Servico[] = [
       'Páginas internas por serviço ou tema',
       'Navegação e organização de conteúdo',
     ],
-    pendente: false,
   },
   {
     id: 'reforma',
@@ -696,7 +500,6 @@ export const servicos: Servico[] = [
       'Reestruturação de conteúdo e hierarquia',
       'Identidade e leitura no celular',
     ],
-    pendente: false,
   },
   {
     id: 'ecommerce',
@@ -710,7 +513,6 @@ export const servicos: Servico[] = [
       'Experiência de compra no celular',
       'Direção dos conteúdos essenciais',
     ],
-    pendente: false,
   },
   {
     id: 'identidade-visual',
@@ -724,22 +526,14 @@ export const servicos: Servico[] = [
       'Cores e tipografia',
       'Orientação para aplicação digital',
     ],
-    pendente: false,
   },
 ]
 
-/* ---------------------------------------------------------------------------
- *  CONTATO
- * ---------------------------------------------------------------------------
- *  Não há backend nesta etapa. O formulário monta uma mensagem e abre o
- *  WhatsApp — nada é enviado para servidor nenhum.
- * ------------------------------------------------------------------------ */
 export const contato = {
   eyebrow: 'Contato',
   titulo: 'Uma conversa curta resolve mais que um formulário longo.',
   lead: 'Conte em duas linhas o que você faz. A gente responde com uma primeira ideia do que dá para fazer.',
 
-  /** ⚠ PENDENTE — canais ainda não definidos. Item sem `valor` não aparece. */
   canais: [
     { rotulo: 'E-mail', valor: null as string | null, tipo: 'email' as const },
     { rotulo: 'Horário de atendimento', valor: null as string | null, tipo: 'texto' as const },
@@ -777,7 +571,7 @@ export const checkoutPagina = {
   eyebrow: 'Contratação online',
   titulo: 'Comece sem reunião e sem briefing interminável.',
   lead:
-    'Escolha o plano e envie o que seu negócio já tem. A primeira conversa acontece depois da contratação e é reservada à escolha do domínio.',
+    'Escolha a forma de pagamento e envie o que seu negócio já tem. A primeira conversa acontece depois da contratação e é reservada à escolha do domínio.',
   secoes: {
     responsavel: 'Seus dados',
     negocio: 'Sobre o negócio',
@@ -787,7 +581,7 @@ export const checkoutPagina = {
   dominio: {
     titulo: 'O domínio fica no seu nome, registrado por você.',
     texto:
-      'Depois da contratação, fazemos uma ligação curta para conferir disponibilidade e escolher o endereço junto com você. Um .com.br normalmente custa a partir de R$ 40 por ano no Registro.br, pago direto por você — não entra nas mensalidades do site.',
+      'Depois da contratação, fazemos uma ligação curta para conferir disponibilidade e escolher o endereço junto com você. Um .com.br normalmente custa a partir de R$ 40 por ano no Registro.br, pago direto por você — não entra no valor do site.',
   },
   campos: {
     nome: 'Seu nome',
@@ -806,10 +600,11 @@ export const checkoutPagina = {
   resumo: {
     titulo: 'Resumo do pedido',
     plano: 'Plano de site',
-    recorrencia: 'Duração do plano',
+    parcelamento: 'Parcelamento',
     pagamento: 'Forma de pagamento',
-    total: 'Valor total do plano',
+    total: 'Valor total do site',
     aVista: 'Desconto no Pix',
+    manutencao: 'Manutenção mensal',
     dominio: 'Domínio (.com.br)',
     dominioValor: 'a partir de R$ 40/ano, à parte',
   },

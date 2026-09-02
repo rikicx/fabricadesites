@@ -1,17 +1,8 @@
 import { projetos } from '../data/site'
 import { Reveal } from './primitives'
 
-/* --------------------------------------------------------------------------
- *  PORTFÓLIO
- *  Ritmo editorial por offset vertical: a coluna da direita começa deslocada
- *  para baixo e as proporções alternam entre 'larga' e 'alta'.
- *  ⚠ PLACEHOLDER — screenshots reais pendentes. Nenhuma métrica ou resultado
- *  é exibido, por decisão.
- * ----------------------------------------------------------------------- */
 export function Portfolio() {
-  const projetosPublicos = projetos.filter((projeto) => !projeto.placeholder)
-
-  if (projetosPublicos.length === 0) return null
+  if (projetos.length === 0) return null
 
   return (
     <section className="section portfolio" id="nosso-trabalho">
@@ -22,17 +13,13 @@ export function Portfolio() {
         </Reveal>
 
         <div className="portfolio__grid">
-          {projetosPublicos.map((projeto, i) => {
+          {projetos.map((projeto, i) => {
             const Interno = (
               <>
                 <span className={`work__media work__media--${projeto.formato}`}>
                   <img
                     src={projeto.imagem}
-                    alt={
-                      projeto.placeholder
-                        ? 'Espaço reservado para o screenshot do site'
-                        : `Site de ${projeto.nome}`
-                    }
+                    alt={`Site de ${projeto.nome}`}
                     className="work__img"
                     loading="lazy"
                   />

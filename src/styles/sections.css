@@ -1590,257 +1590,65 @@
   align-items: flex-start;
 }
 
-.plan__picker {
+.plan__options {
+  display: grid;
   width: 100%;
+  gap: 0.75rem;
 }
 
-.plan__picker-head {
+.plan__option {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.plan__option--featured {
+  border-color: var(--brand-text);
+  background: color-mix(in srgb, var(--brand) 8%, var(--surface));
+}
+
+.plan__option-label {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: baseline;
   gap: 1rem;
-  margin-bottom: 1rem;
+  color: var(--fg-muted);
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--fg-muted);
 }
 
-.plan__picker-head strong {
-  color: var(--brand-text);
-}
-
-.plan__range {
-  --range-progress: 0%;
-  appearance: none;
-  width: 100%;
-  height: 20px;
-  margin: 0;
-  background: transparent;
-  cursor: grab;
-}
-
-.plan__range:active {
-  cursor: grabbing;
-}
-
-.plan__range::-webkit-slider-runnable-track {
-  height: 4px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    var(--brand-text) 0 var(--range-progress),
-    var(--line-strong) var(--range-progress) 100%
-  );
-}
-
-.plan__range::-webkit-slider-thumb {
-  appearance: none;
-  width: 22px;
-  height: 22px;
-  margin-top: -9px;
-  border: 4px solid var(--surface-2);
-  border-radius: 50%;
-  background: var(--brand-text);
-  box-shadow: 0 0 0 1px var(--brand-text);
-}
-
-.plan__range::-moz-range-track {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--line-strong);
-}
-
-.plan__range::-moz-range-progress {
-  height: 4px;
-  border-radius: 999px;
-  background: var(--brand-text);
-}
-
-.plan__range::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  border: 4px solid var(--surface-2);
-  border-radius: 50%;
-  background: var(--brand-text);
-  box-shadow: 0 0 0 1px var(--brand-text);
-}
-
-.plan__range:focus-visible {
-  outline: 2px solid var(--brand-text);
-  outline-offset: 7px;
-}
-
-.plan__range-labels {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 0.625rem;
-}
-
-.plan__range-labels > span {
-  color: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-align: center;
-}
-
-.plan__range-labels button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--fg-muted);
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.plan__range-labels button.is-active {
-  color: var(--brand-text);
-}
-
-.plan__ticks {
-  display: grid;
-  grid-template-columns: repeat(15, 1fr);
-  align-items: center;
-  margin-inline: 9px;
-  margin-top: -2px;
-}
-
-.plan__ticks button {
-  display: grid;
-  place-items: center;
-  width: 100%;
-  height: 18px;
-  padding: 0;
-  cursor: pointer;
-}
-
-.plan__ticks button span {
-  justify-self: center;
-  width: 2px;
-  height: 5px;
-  background: var(--line-strong);
-  transition:
-    height var(--dur-fast) var(--ease),
-    background var(--dur-fast) var(--ease);
-}
-
-.plan__ticks button.is-active span {
-  background: var(--brand-text);
-}
-
-.plan__ticks button:hover span,
-.plan__ticks button:focus-visible span,
-.plan__ticks button[aria-pressed='true'] span {
-  height: 11px;
-}
-
-.plan__ticks button:focus-visible {
-  outline-width: 2px;
-  outline-offset: 0;
-}
-
-.plan__price {
-  display: flex;
-  align-items: baseline;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.plan__price-prefixo {
-  font-family: var(--font-mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--fg-muted);
-  width: 100%;
-}
-
-.plan__price-valor {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 6vw, 4rem);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-
-.plan__price-periodo {
-  font-size: 1.125rem;
-  color: var(--fg-muted);
-}
-
-/* Selo do plano recomendado (24 meses) — o mesmo verde-limão do site. */
-.plan__price-tag {
-  align-self: center;
-  margin-left: 0.35rem;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+.plan__option-label em {
+  padding: 0.2rem 0.5rem;
   background: var(--brand);
   color: var(--brand-on);
-  font-family: var(--font-mono);
-  font-size: 0.5625rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 0.6rem;
+  font-style: normal;
 }
 
-.plan__summary {
+.plan__option-price {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  align-items: baseline;
+  gap: 0.5rem;
 }
 
-.plan__summary > div {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: var(--t-small);
-  padding-block: 0.75rem;
-  border-bottom: 1px solid var(--line);
+.plan__option-price strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.plan__option-price span,
+.plan__option p {
   color: var(--fg-muted);
 }
 
-.plan__summary > div:first-child {
-  border-top: 1px solid var(--line);
-}
-
-.plan__summary dd {
-  margin: 0;
-  color: var(--fg);
-  font-weight: 700;
-  text-align: right;
-}
-
-.plan__summary dt {
-  max-width: 24ch;
-}
-
-.plan__summary .plan__avista {
-  align-items: flex-start;
-  color: var(--brand-text);
-}
-
-.plan__avista dt {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
-
-.plan__avista dt span {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.plan__avista dd {
-  color: var(--brand-text);
+.plan__option p {
+  font-size: var(--t-small);
 }
 
 .plan__cta {
@@ -2180,11 +1988,6 @@
   transition-delay: 880ms;
   --btn-bg: var(--brand-on);
   --btn-fg: var(--brand);
-}
-
-.final .btn--pendente {
-  filter: none;
-  opacity: 0.6;
 }
 
 @media (max-width: 480px) {

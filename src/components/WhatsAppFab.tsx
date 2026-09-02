@@ -15,20 +15,6 @@ function IconeWhatsApp() {
 export function WhatsAppFab() {
   const href = linkWhatsApp('flutuante')
 
-  if (!href) {
-    return (
-      <button
-        type="button"
-        className="wa-fab is-visible is-disabled"
-        disabled
-        aria-label="WhatsApp: número ainda não definido"
-        title="Número do WhatsApp ainda não definido"
-      >
-        <IconeWhatsApp />
-      </button>
-    )
-  }
-
   return (
     <a
       className="wa-fab is-visible"
